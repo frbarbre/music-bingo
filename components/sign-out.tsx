@@ -5,7 +5,7 @@ export default function SignOut() {
   return (
     <a
       href={`/api/auth/sign-out`}
-      className={cn(buttonVariants({ variant: "destructive" }), "w-full")}
+      className={cn(buttonVariants({ variant: "destructive" }))}
     >
       Sign Out
     </a>
