@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import SignOut from "@/components/sign-out";
 import Client from "./client";
 
@@ -10,7 +11,15 @@ export default function Page() {
           <SignOut />
         </div>
       </header>
-      <Client />
+      <Suspense
+        fallback={
+          <div className="flex min-h-[400px] items-center justify-center">
+            <div className="text-muted-foreground">Loading...</div>
+          </div>
+        }
+      >
+        <Client />
+      </Suspense>
     </div>
   );
 }
