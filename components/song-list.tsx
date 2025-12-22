@@ -76,10 +76,10 @@ export function SongList({ songs, playlistId, checkedSongs, onToggle, onReset }:
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Reset Game?</AlertDialogTitle>
+              <AlertDialogTitle>Reset Checked Songs?</AlertDialogTitle>
               <AlertDialogDescription>
-                This will reset the board size, clear all checked songs, and
-                generate a new board for this playlist. This action cannot be
+                This will clear all checked songs for this playlist. Your board
+                and board size will remain unchanged. This action cannot be
                 undone.
               </AlertDialogDescription>
             </AlertDialogHeader>

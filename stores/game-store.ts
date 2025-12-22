@@ -77,28 +77,18 @@ export const useGameStore = create<GameState>()(
       },
       resetGame: (playlistId) => {
         if (playlistId) {
-          // Only reset the current playlist's data
-          const { boards, boardSizes, checkedSongs } = get();
-          const updatedBoards = { ...boards };
-          const updatedBoardSizes = { ...boardSizes };
+          // Only reset checked songs for the current playlist
+          // Board size and current board are preserved
+          const { checkedSongs } = get();
           const updatedCheckedSongs = { ...checkedSongs };
-
-          delete updatedBoards[playlistId];
-          delete updatedBoardSizes[playlistId];
           delete updatedCheckedSongs[playlistId];
 
           set({
-            boards: updatedBoards,
-            boardSizes: updatedBoardSizes,
             checkedSongs: updatedCheckedSongs,
           });
         } else {
-          // Reset everything
+          // Reset all checked songs across all playlists
           set({
-            boards: {},
-            boardSizes: {},
-            showList: false,
-            currentTab: "board",
             checkedSongs: {},
           });
         }

@@ -29,27 +29,37 @@ export default function PrintDialog({
   playlistName,
 }: PrintDialogProps) {
   const [open, setOpen] = useState(false);
-  const [numberOfBoards, setNumberOfBoards] = useState(1);
+  const [numberOfBoards, setNumberOfBoards] = useState("1");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState("");
 
   const handleGenerate = async () => {
-    if (numberOfBoards < 1 || numberOfBoards > 100) {
-      alert("Please enter a number between 1 and 100");
+    // Validate input is a number
+    const num = parseInt(numberOfBoards, 10);
+    
+    if (isNaN(num)) {
+      setError("Please enter a valid number");
+      return;
+    }
+    
+    if (num < 1 || num > 100) {
+      setError("Please enter a number between 1 and 100");
       return;
     }
 
+    setError("");
     setIsGenerating(true);
     try {
       await generateBingoPDF({
         songs,
         boardSize,
-        numberOfBoards,
+        numberOfBoards: num,
         playlistName,
       });
       setOpen(false);
     } catch (error) {
       console.error("Failed to generate PDF:", error);
-      alert("Failed to generate PDF. Please try again.");
+      setError("Failed to generate PDF. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -77,13 +87,18 @@ export default function PrintDialog({
             <Label htmlFor="boardCount">Number of boards</Label>
             <Input
               id="boardCount"
-              type="number"
-              min={1}
-              max={100}
+              type="text"
               value={numberOfBoards}
-              onChange={(e) => setNumberOfBoards(parseInt(e.target.value) || 1)}
-              placeholder="Enter number of boards"
+              onChange={(e) => {
+                setNumberOfBoards(e.target.value);
+                setError("");
+              }}
+              placeholder="Enter number of boards (1-100)"
+              className={error ? "border-destructive" : ""}
             />
+            {error && (
+              <p className="text-xs text-destructive">{error}</p>
+            )}
             <p className="text-xs text-muted-foreground">
               Current board size: {boardSize}x{boardSize}
             </p>

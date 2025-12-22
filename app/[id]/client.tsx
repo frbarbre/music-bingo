@@ -111,8 +111,8 @@ export default function Client({ id }: ClientProps) {
   };
 
   const handleReset = () => {
+    // Only reset checked songs, board remains unchanged
     resetGame(id);
-    generateBoard(id, songs, 4);
   };
 
   const handleToggleSong = (songId: string) => {
@@ -147,7 +147,6 @@ export default function Client({ id }: ClientProps) {
                 value={boardSize}
                 onChange={handleBoardSizeChange}
               />
-              <ReloadButton songs={songs} onReload={handleReload} />
               <PrintDialog
                 songs={songs}
                 boardSize={boardSize}
@@ -158,6 +157,10 @@ export default function Client({ id }: ClientProps) {
 
           <TabsContent value="board">
             <div className="space-y-6">
+              <div className="flex justify-center">
+                <ReloadButton songs={songs} onReload={handleReload} />
+              </div>
+
               {currentBoard.length > 0 ? (
                 <BingoBoard board={currentBoard} size={boardSize} />
               ) : (

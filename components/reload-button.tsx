@@ -13,7 +13,7 @@ export default function ReloadButton({ songs, onReload }: ReloadButtonProps) {
   return (
     <Button variant="outline" onClick={() => onReload(songs)}>
       <RefreshCwIcon />
-      Reload
+      Reroll Board
     </Button>
   );
 }
