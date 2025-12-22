@@ -3,7 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SimplifiedPlaylistObject } from "@/generated/Playlists";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Music2Icon } from "lucide-react";
 
 interface PlaylistCardProps {
@@ -18,7 +23,9 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
     >
       <Card className="flex h-full flex-col overflow-hidden border-0 bg-muted/30 p-0 transition-all hover:bg-muted/50">
         <div className="relative aspect-square w-full overflow-hidden bg-muted">
-          {playlist.images && playlist.images.length > 0 && playlist.images[0]?.url ? (
+          {playlist.images &&
+          playlist.images.length > 0 &&
+          playlist.images[0]?.url ? (
             <Image
               src={playlist.images[0].url}
               alt={playlist.name || "Playlist"}
@@ -33,16 +40,16 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
             </div>
           )}
         </div>
-        <CardHeader className="flex flex-1 flex-col gap-1 p-4">
-          <CardTitle className="line-clamp-2 text-sm font-semibold leading-tight">
+        <CardHeader className="flex flex-1 flex-col gap-1 p-4 pt-0">
+          <CardTitle className="line-clamp-1 text-sm font-semibold leading-tight">
             {playlist.name || "Untitled Playlist"}
           </CardTitle>
-          <CardDescription className="line-clamp-2 text-xs leading-tight">
-            {playlist.description || `${playlist.tracks?.total || 0} track${playlist.tracks?.total !== 1 ? "s" : ""}`}
+          <CardDescription className="line-clamp-1 text-xs leading-tight">
+            {playlist.tracks?.total || 0} track
+            {playlist.tracks?.total !== 1 ? "s" : ""}
           </CardDescription>
         </CardHeader>
       </Card>
     </Link>
   );
 }
-
