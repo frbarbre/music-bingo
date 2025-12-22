@@ -1,5 +1,11 @@
-import { ComponentExample } from "@/components/component-example";
+import SignOut from "@/components/sign-out";
+import Client from "./client";
 
 export default function Page() {
-return <ComponentExample />;
+  return (
+    <div>
+      <SignOut />
+      <Client />
+    </div>
+  );
 }

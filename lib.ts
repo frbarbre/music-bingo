@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { Session } from "./types";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -35,8 +36,8 @@ export async function logout() {
   (await cookies()).set("store", "", { expires: new Date(0) });
 }
 
-export async function getSession() {
+export async function getSession(): Promise<Session | null> {
   const session = (await cookies()).get("store")?.value;
   if (!session) return null;
-  return await decrypt(session);
+  return (await decrypt(session)) as Session;
 }

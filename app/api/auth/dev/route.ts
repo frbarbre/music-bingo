@@ -6,7 +6,7 @@ export async function GET() {
     return NextResponse.json({ error: "Not allowed" }, { status: 403 });
   }
 
-  await login(process.env.TEST_REFRESH_TOKEN!);
+  await login(process.env.DEV_REFRESH_TOKEN!);
 
   return NextResponse.redirect(new URL("/", process.env.BASE_URL!));
 }
